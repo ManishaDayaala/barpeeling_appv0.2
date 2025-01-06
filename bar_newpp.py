@@ -513,6 +513,17 @@ def predict_time(test_file_path):
         model = load_model(os.path.join(model_folder_path, 'trained_modelFINT.h5'))
         predictions = model.predict(X_test_scaled)
         return predictions
+        
+    def calculate_time_difference(times, predictions):
+        time_to_breakdown_with_time = []
+        base_time = datetime.strptime(times[0],'%I:%M %p')
+        for time_str, prediction in zip(times, predictions):
+            time_obj = datetime.strptime(time_str, '%I:%M %p')
+            #midnight = datetime.combine(time_obj.date(), datetime.min.time())
+            time_difference = (time_obj - base_time).total_seconds() / 3600
+            adjusted_time_to_bd = prediction[0] + time_difference
+            time_to_breakdown_with_time.append(adjusted_time_to_bd)
+        return time_to_breakdown_with_time
 
     #CHANGE.........................................................................................................................
     def find_minimum_maximum_and_mode_interval(time_to_breakdown_with_time):

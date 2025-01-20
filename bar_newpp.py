@@ -577,8 +577,8 @@ def predict_time(test_file_path):
         # Find the minimum, maximum, and mode interval
         min_time, max_time, mode_interval, mode_frequency = find_minimum_maximum_and_mode_interval(predictions_with_time)
     
-        if min_time is None or max_time is None or mode_interval is None:
-            return "No positive breakdown times available."
+        #if min_time is None or max_time is None or mode_interval is None:
+            #return "No positive breakdown times available."
     
         # Calculate the midpoint of the mode interval
         mode_midpoint = (mode_interval[0] + mode_interval[1]) / 2

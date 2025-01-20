@@ -577,8 +577,8 @@ def predict_time(test_file_path):
         # Find the minimum, maximum, and mode interval
         min_time, max_time, mode_interval, mode_frequency = find_minimum_maximum_and_mode_interval(predictions_with_time)
     
-        #if min_time is None or max_time is None or mode_interval is None:
-            #return "No positive breakdown times available."
+        if min_time is None or max_time is None or mode_interval is None:
+            return "No positive breakdown times available."
     
         # Calculate the midpoint of the mode interval
         mode_midpoint = (mode_interval[0] + mode_interval[1]) / 2
@@ -614,7 +614,7 @@ if st.button("Predict Time", disabled=not st.session_state["check_bd_clicked"]):
         st.error("No breakdown predicted. Cannot proceed with time prediction.")
     else:
         with st.spinner("Training the model and making predictions..."):
-            #train_model(training_file_path)
+            train_model(training_file_path)
             result = predict_time(test_file_path)  # Predict time using predefined test data
         st.write(f"Predicted Time to Breakdown: {result}")
         st.success("Prediction complete!")

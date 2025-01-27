@@ -472,7 +472,7 @@ def train_model(training_file_path):
         scaler = StandardScaler()
         X_train_scaled = scaler.fit_transform(X_train)
         X_val_scaled = scaler.transform(X_val)
-        joblib.dump(scaler, os.path.join(model_folder_path, 'scalerfinT123.pkl'))
+        joblib.dump(scaler, os.path.join(model_folder_path, 'scalerfinT12.pkl'))
         return X_train_scaled, X_val_scaled, y_train, y_val
 
     def build_model(input_shape):
@@ -493,7 +493,7 @@ def train_model(training_file_path):
 
     early_stopping = EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)
     model.fit(X_train, y_train, validation_data=(X_val, y_val), epochs=100, batch_size=32, callbacks=[early_stopping])
-    model.save(os.path.join(model_folder_path, 'trained_modelFINT123.h5'))
+    model.save(os.path.join(model_folder_path, 'trained_modelFINT12.h5'))
 
 # Define the prediction function
 def predict_time(test_file_path):

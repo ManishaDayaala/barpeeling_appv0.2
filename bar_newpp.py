@@ -505,12 +505,12 @@ def predict_time(test_file_path):
         return df, X_test, serial_numbers, times
 
     def preprocess_test_data(X_test):
-        scaler = joblib.load(os.path.join(model_folder_path, 'scalerfinT12.pkl'))
+        scaler = joblib.load(os.path.join(model_folder_path, 'scalerfinT123.pkl'))
         X_test_scaled = scaler.transform(X_test)
         return X_test_scaled
 
     def predict_time_to_breakdown(X_test_scaled):
-        model = load_model(os.path.join(model_folder_path, 'trained_modelFINT12.h5'))
+        model = load_model(os.path.join(model_folder_path, 'trained_modelFINT123.h5'))
         predictions = model.predict(X_test_scaled)
         return predictions
         
@@ -614,7 +614,7 @@ if st.button("Predict Time", disabled=not st.session_state["check_bd_clicked"]):
         st.error("No breakdown predicted. Cannot proceed with time prediction.")
     else:
         with st.spinner("Training the model and making predictions..."):
-            #train_model(training_file_path)
+            train_model(training_file_path)
             result = predict_time(test_file_path)  # Predict time using predefined test data
         st.write(f"Predicted Time to Breakdown: {result}")
         st.success("Prediction complete!")

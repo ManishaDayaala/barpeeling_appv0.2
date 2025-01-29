@@ -470,7 +470,7 @@ def train_model(training_file_path):
         scaler = StandardScaler()
         X_train_scaled = scaler.fit_transform(X_train)
         X_val_scaled = scaler.transform(X_val)
-        joblib.dump(scaler, os.path.join(model_folder_path, 'scalerfinp.pkl'))
+        joblib.dump(scaler, os.path.join(model_folder_path, 'scalerfinT123.pkl'))
         return X_train_scaled, X_val_scaled, y_train, y_val
 
     def build_model(input_shape):
@@ -491,7 +491,7 @@ def train_model(training_file_path):
 
     early_stopping = EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)
     model.fit(X_train, y_train, validation_data=(X_val, y_val), epochs=100, batch_size=32, callbacks=[early_stopping])
-    model.save(os.path.join(model_folder_path, 'trained_modelFINp.h5'))
+    model.save(os.path.join(model_folder_path, 'trained_modelFINT123.h5'))
 
 # Define the prediction function
 def predict_time(test_file_path):
@@ -503,12 +503,12 @@ def predict_time(test_file_path):
         return df, X_test, serial_numbers, times
 
     def preprocess_test_data(X_test):
-        scaler = joblib.load(os.path.join(model_folder_path, 'scalerfinp.pkl'))
+        scaler = joblib.load(os.path.join(model_folder_path, 'scalerfinT123.pkl'))
         X_test_scaled = scaler.transform(X_test)
         return X_test_scaled
 
     def predict_time_to_breakdown(X_test_scaled):
-        model = load_model(os.path.join(model_folder_path, 'trained_modelFINp.h5'))
+        model = load_model(os.path.join(model_folder_path, 'trained_modelFINT123.h5'))
         predictions = model.predict(X_test_scaled)
         return predictions
         

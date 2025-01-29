@@ -319,6 +319,7 @@ def train_ensemble_model(training_file_path, model_folder_path):
 
     # Calculate sample weights for XGBoost
     sample_weights = np.array([class_weights[int(label)] for label in y_resampled])
+    
 
     # XGBoost model
     xgb_model = xgb.XGBClassifier(objective='multi:softmax', num_class=4, eval_metric='mlogloss', sample_weight=sample_weights, random_state=42)
@@ -611,7 +612,7 @@ if st.button("Predict Time", disabled=not st.session_state["check_bd_clicked"]):
         st.error("No breakdown predicted. Cannot proceed with time prediction.")
     else:
         with st.spinner("Training the model and making predictions..."):
-            train_model(training_file_path)
+            #train_model(training_file_path)
             result = predict_time(test_file_path)  # Predict time using predefined test data
         st.write(f"Predicted Time to Breakdown: {result}")
         st.success("Prediction complete!")
